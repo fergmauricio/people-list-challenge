@@ -17,9 +17,9 @@
     gap: 1.5rem;
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background-color: $grey-600;
+    background-color: var(--grey-600);
     border-radius: 8px;
-    border: 1px solid $grey-500;
+    border: 1px solid var(--grey-500);
 
     @include mobile {
       flex-direction: column;
@@ -33,7 +33,7 @@
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid $primary;
+    border: 3px solid var(--primary);
 
     @include mobile {
       width: 60px;
@@ -49,7 +49,7 @@
     font-family: $font-primary;
     font-size: $text-24;
     font-weight: 700;
-    color: $text-primary;
+    color: var(--text-primary);
     margin: 0 0 0.5rem 0;
 
     @include mobile {
@@ -60,7 +60,7 @@
   &__title {
     font-family: $font-secondary;
     font-size: $text-16;
-    color: $grey-300;
+    color: var(--grey-300);
     text-transform: capitalize;
   }
 
@@ -71,10 +71,10 @@
   &__error {
     text-align: center;
     padding: 3rem;
-    color: $grey-300;
+    color: var(--grey-300);
 
     h2 {
-      color: $text-primary;
+      color: var(--text-primary);
       margin-bottom: 1rem;
     }
   }

@@ -7,9 +7,9 @@
 
   &__arrow,
   &__page {
-    border: 1px solid $grey-500;
-    background-color: $grey-600;
-    color: $text-primary;
+    border: 1px solid var(--grey-500);
+    background-color: var(--grey-600);
+    color: var(--text-primary);
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
@@ -18,8 +18,8 @@
     font-size: $text-14;
 
     &:hover:not(:disabled) {
-      background-color: $grey-500;
-      border-color: $primary;
+      background-color: var(--grey-500);
+      border-color: var(--primary);
     }
 
     &:disabled {
@@ -30,8 +30,8 @@
 
   &__page {
     &--active {
-      background-color: $primary;
-      border-color: $primary;
+      background-color: var(--primary);
+      border-color: var(--primary);
       color: white;
     }
   }
@@ -43,7 +43,7 @@
 
     &:hover {
       background-color: transparent;
-      border-color: $grey-500;
+      border-color: var(--grey-500);
     }
   }
 }

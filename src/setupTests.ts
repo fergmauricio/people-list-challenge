@@ -26,3 +26,7 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: jest.fn(),
   })),
 });
+
+beforeEach(() => {
+  document.documentElement.setAttribute("data-theme", "dark");
+});

@@ -1,21 +1,22 @@
 .input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid $grey-500;
+  border: 1px solid var(--grey-500);
   border-radius: 8px;
-  background-color: $grey-600;
-  color: $text-primary;
+  background-color: var(--grey-600);
+  color: var(--text-primary);
   font-family: $font-secondary;
   font-size: $text-16;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
 
   &::placeholder {
-    color: $grey-400;
+    color: var(--grey-400);
   }
 
   &:focus {
     outline: none;
-    border-color: $primary;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(129, 26, 192, 0.2);
   }
 
   &--search {

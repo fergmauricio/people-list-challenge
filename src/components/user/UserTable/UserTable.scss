@@ -1,8 +1,8 @@
 .user-table {
-  background-color: $grey-600;
+  background-color: var(--grey-600);
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid $grey-500;
+  border: 1px solid var(--grey-500);
 
   &__table {
     width: 100%;
@@ -10,7 +10,7 @@
   }
 
   &__header {
-    background-color: $grey-500;
+    background-color: var(--grey-500);
 
     th {
       padding: 1rem;
@@ -18,8 +18,8 @@
       font-family: $font-primary;
       font-size: $text-14;
       font-weight: 600;
-      color: $text-primary;
-      border-bottom: 1px solid $grey-400;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--grey-500);
     }
   }
 
@@ -28,11 +28,11 @@
       transition: background-color 0.2s ease;
 
       &:hover {
-        background-color: $grey-550;
+        background-color: var(--grey-500);
       }
 
       &:not(:last-child) {
-        border-bottom: 1px solid $grey-500;
+        border-bottom: 1px solid var(--grey-500);
       }
     }
   }
@@ -41,7 +41,8 @@
     padding: 1rem;
     font-family: $font-secondary;
     font-size: $text-14;
-    color: $text-primary;
+    color: var(--text-primary);
+    transition: color 0.2s ease;
 
     &--id {
       font-family: $font-primary;
@@ -58,7 +59,7 @@
     }
 
     &--date {
-      color: $grey-300;
+      color: var(--grey-300);
     }
 
     &--age {
@@ -78,10 +79,10 @@
   justify-content: center;
   align-items: center;
   padding: 3rem;
-  background-color: $grey-600;
   border-radius: 8px;
-  border: 1px solid $grey-500;
-  color: $grey-300;
+  background-color: var(--grey-600);
+  border: 1px solid var(--grey-500);
+  color: var(--grey-300);
   font-family: $font-secondary;
 }
 

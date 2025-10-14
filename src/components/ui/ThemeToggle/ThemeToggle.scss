@@ -1,0 +1,38 @@
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+
+  &:hover {
+    //background-color: var(--grey-500);
+    transform: scale(1.1);
+  }
+
+  &__track {
+    width: 50px;
+    height: 26px;
+    background: linear-gradient(145deg, var(--grey-500), var(--grey-400));
+    border-radius: 13px;
+    padding: 2px;
+    position: relative;
+  }
+
+  &__thumb {
+    width: 22px;
+    height: 22px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    [data-theme="light"] & {
+      transform: translateX(24px);
+    }
+  }
+}

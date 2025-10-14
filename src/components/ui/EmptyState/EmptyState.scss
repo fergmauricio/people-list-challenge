@@ -1,7 +1,7 @@
 .empty-state {
   text-align: center;
   padding: 3rem 2rem;
-  color: $grey-300;
+  color: var(--grey-300);
 
   &__icon {
     font-size: 3rem;
@@ -12,7 +12,7 @@
   &__title {
     font-family: $font-primary;
     font-size: $text-18;
-    color: $text-primary;
+    color: var(--text-primary);
     margin: 0 0 0.5rem 0;
   }
 
@@ -23,8 +23,8 @@
   }
 
   &--search {
-    background-color: $grey-600;
+    background-color: var(--grey-600);
     border-radius: 8px;
-    border: 1px solid $grey-500;
+    border: 1px solid var(--grey-500);
   }
 }

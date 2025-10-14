@@ -7,8 +7,8 @@
   .spinner {
     width: 2rem;
     height: 2rem;
-    border: 2px solid $grey-500;
-    border-top: 2px solid $primary;
+    border: 2px solid var(--grey-500);
+    border-top: 2px solid var(--primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }

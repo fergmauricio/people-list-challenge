@@ -1,3 +1,30 @@
+:root {
+  --primary: #{$primary};
+  --background: #{$background};
+  --text-primary: #{$text-primary};
+  --text-hover: #{$background};
+  --grey-100: #{$grey-100};
+  --grey-200: #{$grey-200};
+  --grey-300: #{$grey-300};
+  --grey-400: #{$grey-400};
+  --grey-500: #{$grey-500};
+  --grey-600: #{$grey-600};
+}
+
+// ===== LIGHT THEME =====
+[data-theme="light"] {
+  --primary: #{$primary-light};
+  --background: #{$background-light};
+  --text-primary: #{$text-primary-light};
+  --text-hover: #{$background-light};
+  --grey-100: #{$grey-100-light};
+  --grey-200: #{$grey-200-light};
+  --grey-300: #{$grey-300-light};
+  --grey-400: #{$grey-400-light};
+  --grey-500: #{$grey-500-light};
+  --grey-600: #{$grey-600-light};
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,9 +33,10 @@
 
 body {
   font-family: $font-secondary;
-  background-color: $background;
-  color: $text-primary;
+  background-color: var(--background);
+  color: var(--text-primary);
   line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 // Reset e estilos base

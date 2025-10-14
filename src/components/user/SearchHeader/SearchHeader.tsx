@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/Input/Input";
 import "./SearchHeader.scss";
+import { ThemeToggle } from "@/components/ui/ThemeToggle/ThemeToggle";
 
 interface SearchHeaderProps {
   searchTerm: string;
@@ -34,12 +35,15 @@ export const SearchHeader = ({
   return (
     <div className="search-header">
       <div className="search-header__top">
-        <h1 className="search-header__title">Encontrar pessoas</h1>
-        {!isLoading && resultsCount > 0 && (
-          <span className="search-header__count">
-            {resultsCount} usuário(s)
-          </span>
-        )}
+        <h1 className="search-header__title">Finding People</h1>
+        <div className="search-header__right">
+          {!isLoading && resultsCount > 0 && (
+            <span className="search-header__count">
+              {resultsCount} usuário(s)
+            </span>
+          )}
+          <ThemeToggle />
+        </div>
       </div>
 
       <div className="search-header__search">

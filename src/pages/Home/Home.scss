@@ -28,10 +28,10 @@
 .home-error {
   text-align: center;
   padding: 3rem;
-  color: $grey-300;
+  color: var(--grey-300);
 
   h2 {
-    color: $text-primary;
+    color: var(--text-primary);
     margin-bottom: 1rem;
     font-family: $font-primary;
     font-size: $text-24;
@@ -44,8 +44,8 @@
 }
 
 .retry-button {
-  background-color: $primary;
-  color: $text-primary;
+  background-color: var(--primary);
+  color: var(--text-primary);
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
@@ -60,11 +60,11 @@
 }
 
 .skeleton-user-card {
-  background-color: $grey-600;
+  background-color: var(--grey-600);
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1rem;
-  border: 1px solid $grey-500;
+  border: 1px solid var(--grey-500);
 
   &__header {
     display: flex;

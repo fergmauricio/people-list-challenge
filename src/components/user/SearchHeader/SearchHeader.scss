@@ -18,7 +18,8 @@
     font-family: $font-primary;
     font-size: $text-32;
     font-weight: 700;
-    color: $text-primary;
+    color: var(--text-primary);
+
     margin: 0;
 
     @include mobile {
@@ -26,11 +27,18 @@
     }
   }
 
+  &__right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
   &__count {
     font-family: $font-secondary;
     font-size: $text-14;
-    color: $grey-300;
-    background-color: $grey-500;
+    color: var(--grey-300);
+    background-color: var(--grey-500);
     padding: 0.25rem 0.75rem;
     border-radius: 16px;
   }
@@ -42,9 +50,15 @@
   &__results {
     font-family: $font-secondary;
     font-size: $text-14;
-    color: $grey-300;
+    color: var(--grey-300);
     text-align: center;
     padding: 0.5rem;
-    border-top: 1px solid $grey-500;
+    border-top: 1px solid var(--grey-500);
+  }
+
+  .search-header__left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 }
