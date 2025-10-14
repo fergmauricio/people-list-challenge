@@ -11,28 +11,28 @@ describe("useDebounce", () => {
   });
 
   it("should return initial value immediately", () => {
-    const { result } = renderHook(() => useDebounce("test", 500));
-    expect(result.current).toBe("test");
+    const { result } = renderHook(() => useDebounce("Maurício", 500));
+    expect(result.current).toBe("Maurício");
   });
 
   it("should debounce value changes", () => {
     const { result, rerender } = renderHook(
       ({ value, delay }) => useDebounce(value, delay),
       {
-        initialProps: { value: "first", delay: 500 },
+        initialProps: { value: "Priscila", delay: 500 },
       }
     );
 
-    expect(result.current).toBe("first");
+    expect(result.current).toBe("Priscila");
 
-    rerender({ value: "second", delay: 500 });
+    rerender({ value: "Laís", delay: 500 });
 
-    expect(result.current).toBe("first");
+    expect(result.current).toBe("Priscila");
 
     act(() => {
       jest.advanceTimersByTime(500);
     });
 
-    expect(result.current).toBe("second");
+    expect(result.current).toBe("Laís");
   });
 });

@@ -3,13 +3,21 @@ import { useDebounce } from "./useDebounce";
 import { userService } from "@/services/userService";
 import { User } from "@/types/user.types";
 
-export const useUsers = (page: number, searchTerm: string) => {
+interface UseUsersReturn {
+  users: User[];
+  isLoading: boolean;
+  error: Error | null;
+  hasUsers: boolean;
+  totalUsers: number;
+}
+
+export const useUsers = (page: number, searchTerm: string): UseUsersReturn => {
   const debouncedSearch = useDebounce(searchTerm, 300);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["users", page],
     queryFn: () => userService.fetchUsers({ page, results: 10 }),
-    staleTime: 5 * 60 * 1000, // 5 minutos
+    staleTime: 5 * 60 * 1000,
   });
 
   // Filtro client-side
@@ -18,17 +26,27 @@ export const useUsers = (page: number, searchTerm: string) => {
       if (!debouncedSearch) return true;
 
       const term = debouncedSearch.toLowerCase();
+
+      const firstName = user.name.first.toLowerCase();
+      const lastName = user.name.last.toLowerCase();
+      const city = user.location.city.toLowerCase();
+      const state = user.location.state.toLowerCase();
+      const age = user.dob.age.toString();
+
       return (
-        user.name.first.toLowerCase().includes(term) ||
-        user.name.last.toLowerCase().includes(term) ||
-        user.dob.age.toString().includes(term)
+        firstName.includes(term) ||
+        lastName.includes(term) ||
+        age.includes(term) ||
+        city.includes(term) ||
+        state.includes(term)
       );
     }) || [];
 
   return {
     users: filteredUsers,
     isLoading,
-    error,
+    error: error as Error | null,
     hasUsers: filteredUsers.length > 0,
+    totalUsers: data?.length || 0,
   };
 };
