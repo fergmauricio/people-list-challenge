@@ -1,0 +1,30 @@
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: $grey-300;
+
+  &__icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  &__title {
+    font-family: $font-primary;
+    font-size: $text-18;
+    color: $text-primary;
+    margin: 0 0 0.5rem 0;
+  }
+
+  &__description {
+    font-family: $font-secondary;
+    font-size: $text-14;
+    margin: 0;
+  }
+
+  &--search {
+    background-color: $grey-600;
+    border-radius: 8px;
+    border: 1px solid $grey-500;
+  }
+}
