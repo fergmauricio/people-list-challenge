@@ -1,24 +1,47 @@
-@import "variables";
-table {
-  border-collapse: collapse;
-  width: 100%;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-th {
-  background: var(--primary);
-  color: var(--text);
-  padding: 12px;
-  text-align: left;
+
+body {
+  font-family: $font-secondary;
+  background-color: $background;
+  color: $text-primary;
+  line-height: 1.5;
 }
-td {
-  padding: 12px;
-  border-bottom: 1px solid var(--grey-2);
+
+// Reset e estilos base
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-primary;
+  font-weight: 600;
+  line-height: auto;
 }
-input {
-  border: 1px solid var(--grey-5);
-  padding: 12px;
-  background: var(--bg);
-  color: var(--text);
-  border-radius: 4px;
-  width: 100%;
-  max-width: 400px;
+
+// Classes utilitárias para as font sizes
+.text-42 {
+  font-size: $text-42;
+}
+.text-32 {
+  font-size: $text-32;
+}
+.text-24 {
+  font-size: $text-24;
+}
+.text-22 {
+  font-size: $text-22;
+}
+.text-20 {
+  font-size: $text-20;
+}
+.text-18 {
+  font-size: $text-18;
+}
+.text-16 {
+  font-size: $text-16;
 }

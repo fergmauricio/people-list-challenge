@@ -1,0 +1,28 @@
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid $grey-500;
+  border-radius: 8px;
+  background-color: $grey-600;
+  color: $text-primary;
+  font-family: $font-secondary;
+  font-size: $text-16;
+  transition: border-color 0.2s ease;
+
+  &::placeholder {
+    color: $grey-400;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+  }
+
+  &--search {
+    padding-left: 2.5rem;
+
+    background-repeat: no-repeat;
+    background-position: 0.75rem center;
+    background-size: 1.25rem;
+  }
+}
