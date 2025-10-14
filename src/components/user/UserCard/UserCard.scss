@@ -1,0 +1,88 @@
+.user-card {
+  background-color: $grey-600;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid $grey-500;
+
+  &:hover {
+    border-color: $primary;
+    transform: translateY(-2px);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__name {
+    font-family: $font-primary;
+    font-size: $text-18;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0 0 0.25rem 0;
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $text-14;
+    color: $grey-300;
+    text-transform: capitalize;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__label {
+    font-family: $font-secondary;
+    font-size: $text-14;
+    color: $grey-300;
+  }
+
+  &__value {
+    font-family: $font-primary;
+    font-size: $text-14;
+    color: $text-primary;
+    font-weight: 500;
+  }
+}
+
+// Responsividade
+@include mobile {
+  .user-card {
+    padding: 0.75rem;
+
+    &__header {
+      gap: 0.75rem;
+    }
+
+    &__avatar {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

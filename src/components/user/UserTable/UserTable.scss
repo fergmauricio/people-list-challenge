@@ -1,0 +1,93 @@
+.user-table {
+  background-color: $grey-600;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid $grey-500;
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__header {
+    background-color: $grey-500;
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-family: $font-primary;
+      font-size: $text-14;
+      font-weight: 600;
+      color: $text-primary;
+      border-bottom: 1px solid $grey-400;
+    }
+  }
+
+  &__body {
+    .user-table__row {
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: $grey-550;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $grey-500;
+      }
+    }
+  }
+
+  &__cell {
+    padding: 1rem;
+    font-family: $font-secondary;
+    font-size: $text-14;
+    color: $text-primary;
+
+    &--id {
+      font-family: $font-primary;
+      font-weight: 500;
+    }
+
+    &--name {
+      font-family: $font-primary;
+      font-weight: 500;
+    }
+
+    &--title {
+      text-transform: capitalize;
+    }
+
+    &--date {
+      color: $grey-300;
+    }
+
+    &--age {
+      text-align: center;
+      font-weight: 600;
+    }
+
+    &--actions {
+      text-align: center;
+    }
+  }
+}
+
+.user-table-loading,
+.user-table-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  background-color: $grey-600;
+  border-radius: 8px;
+  border: 1px solid $grey-500;
+  color: $grey-300;
+  font-family: $font-secondary;
+}
+
+// Responsividade
+@include mobile {
+  .user-table {
+    display: none;
+  }
+}
