@@ -1,4 +1,4 @@
-import { ApiResponse, User } from "../types/user";
+import { ApiResponse, User } from "../types/user.types";
 
 const BASE_URL = "https://randomuser.me/api";
 const SEED = "fixedseed";

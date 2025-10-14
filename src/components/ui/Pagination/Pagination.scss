@@ -1,0 +1,49 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+
+  &__arrow,
+  &__page {
+    border: 1px solid $grey-500;
+    background-color: $grey-600;
+    color: $text-primary;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: $font-primary;
+    font-size: $text-14;
+
+    &:hover:not(:disabled) {
+      background-color: $grey-500;
+      border-color: $primary;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__page {
+    &--active {
+      background-color: $primary;
+      border-color: $primary;
+      color: white;
+    }
+  }
+
+  &__ellipsis {
+    background-color: transparent;
+    border: none;
+    cursor: default;
+
+    &:hover {
+      background-color: transparent;
+      border-color: $grey-500;
+    }
+  }
+}
