@@ -1,0 +1,50 @@
+.search-header {
+  margin-bottom: 2rem;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+
+  &__title {
+    font-family: $font-primary;
+    font-size: $text-32;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0;
+
+    @include mobile {
+      font-size: $text-24;
+    }
+  }
+
+  &__count {
+    font-family: $font-secondary;
+    font-size: $text-14;
+    color: $grey-300;
+    background-color: $grey-500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 16px;
+  }
+
+  &__search {
+    margin-bottom: 1rem;
+  }
+
+  &__results {
+    font-family: $font-secondary;
+    font-size: $text-14;
+    color: $grey-300;
+    text-align: center;
+    padding: 0.5rem;
+    border-top: 1px solid $grey-500;
+  }
+}
