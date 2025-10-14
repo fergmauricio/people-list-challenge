@@ -1,0 +1,81 @@
+.user-details {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+
+  @include mobile {
+    padding: 1rem;
+  }
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: $grey-600;
+    border-radius: 8px;
+    border: 1px solid $grey-500;
+
+    @include mobile {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+  }
+
+  &__avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid $primary;
+
+    @include mobile {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  &__info {
+    flex: 1;
+  }
+
+  &__name {
+    font-family: $font-primary;
+    font-size: $text-24;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0 0 0.5rem 0;
+
+    @include mobile {
+      font-size: $text-20;
+    }
+  }
+
+  &__title {
+    font-family: $font-secondary;
+    font-size: $text-16;
+    color: $grey-300;
+    text-transform: capitalize;
+  }
+
+  &__tabs {
+    margin-top: 2rem;
+  }
+
+  &__error {
+    text-align: center;
+    padding: 3rem;
+    color: $grey-300;
+
+    h2 {
+      color: $text-primary;
+      margin-bottom: 1rem;
+    }
+  }
+}
