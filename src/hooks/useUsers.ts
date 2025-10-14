@@ -16,7 +16,12 @@ export const useUsers = (page: number, searchTerm: string): UseUsersReturn => {
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["users", page],
-    queryFn: () => userService.fetchUsers({ page, results: 10 }),
+    queryFn: () =>
+      userService.fetchUsers({
+        page,
+        results: 20,
+        seed: "findpeople",
+      }),
     staleTime: 5 * 60 * 1000,
   });
 
@@ -26,7 +31,6 @@ export const useUsers = (page: number, searchTerm: string): UseUsersReturn => {
       if (!debouncedSearch) return true;
 
       const term = debouncedSearch.toLowerCase();
-
       const firstName = user.name.first.toLowerCase();
       const lastName = user.name.last.toLowerCase();
       const city = user.location.city.toLowerCase();
