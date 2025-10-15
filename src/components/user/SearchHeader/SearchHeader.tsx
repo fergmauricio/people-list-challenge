@@ -33,7 +33,7 @@ export const SearchHeader = ({
   };
 
   return (
-    <div className="search-header">
+    <div className="search-header animate-slide-in-up">
       <div className="search-header__top">
         <h1 className="search-header__title">Finding People</h1>
         <div className="search-header__right">
