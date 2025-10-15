@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const UserDetails = lazy(() => import("./pages/UserDetails"));
+const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 
 const LoadingSpinner = () => (
   <div
@@ -24,6 +25,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/user/:id" element={<UserDetails />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
   );
