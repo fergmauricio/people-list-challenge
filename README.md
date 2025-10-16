@@ -14,7 +14,23 @@ Achei a proposta do desafio interessante e resolvi praticar criando a minha vers
 
 **Resultado:** Uma aplicação completa, bem testada e pronta para produção!
 
-![Preview da Aplicação](https://via.placeholder.com/800x400/811AC0/FFFFFF?text=Find+People+-+Gerenciamento+de+Usuários)
+## 📸 Screenshots
+
+### 🖥️ Desktop - Dark Theme
+
+![Home Desktop Dark](https://github.com/fergmauricio/people-list-challenge/blob/main/docs/desktop_list_dark.jpg)
+
+### 🖥️ Desktop - Light Theme
+
+![Home Desktop Dark](https://github.com/fergmauricio/people-list-challenge/blob/main/docs/desktop_list_white.jpg)
+
+### 📱 Mobile
+
+![Home Mobile Light](https://github.com/fergmauricio/people-list-challenge/blob/main/docs/mobile_list.jpg)
+
+### 👤 Detalhes do Usuário
+
+![Detalhes do Usuário](https://github.com/fergmauricio/people-list-challenge/blob/main/docs/desktop_user_detail.jpg)
 
 ## Funcionalidades Implementadas
 
@@ -29,7 +45,7 @@ Achei a proposta do desafio interessante e resolvi praticar criando a minha vers
 
 ### 🚀 **Features Extras**
 
-- **Tema escuro/claro** com persistência \*\*
+- **Tema escuro/claro** com persistência
 - **Design totalmente responsivo** (mobile → desktop)
 - **Performance otimizada** com debounce e code splitting
 - **Testes completos** (unitários + E2E)
@@ -157,7 +173,7 @@ src/
 
 ## Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ## 🙏 Agradecimentos
 
