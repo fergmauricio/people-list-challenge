@@ -32,6 +32,10 @@ Achei a proposta do desafio interessante e resolvi praticar criando a minha vers
 
 ![Detalhes do Usuário](https://github.com/fergmauricio/people-list-challenge/blob/main/docs/desktop_user_detail.jpg)
 
+### Demo
+
+[🔗 **Acesse a aplicação online**](https://people-list-challenge-w29s.vercel.app/)
+
 ## Funcionalidades Implementadas
 
 ### ✅ **Requisitos do Desafio**
