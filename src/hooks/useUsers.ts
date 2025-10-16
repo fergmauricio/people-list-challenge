@@ -13,6 +13,11 @@ interface UseUsersReturn {
   hasUsers: boolean;
   totalUsers: number;
   isSearching: boolean;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
+  totalPages: number;
 }
 
 export const useUsers = (): UseUsersReturn => {
