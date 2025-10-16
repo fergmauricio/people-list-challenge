@@ -1,8 +1,12 @@
-import { renderHook, waitFor } from "@testing-library/react";
+import { renderHook, waitFor, act } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useUsers } from "./useUsers";
 import { userService } from "@/services/userService";
 import { mockUsers } from "@/test/mockData";
+
+jest.mock("./useDebounce", () => ({
+  useDebounce: (value: any) => value,
+}));
 
 jest.mock("@/services/userService");
 
@@ -21,143 +25,156 @@ const createWrapper = () => {
 describe("useUsers", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
   });
 
-  it("deve buscar usuários com sucesso", async () => {
-    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
-
-    const { result } = renderHook(() => useUsers(1, ""), {
+  it("deve buscar usuários com sucesso e paginar", async () => {
+    const { result } = renderHook(() => useUsers(), {
       wrapper: createWrapper(),
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    expect(result.current.users).toEqual(mockUsers);
+    expect(result.current.users).toHaveLength(10);
+    expect(result.current.allUsers).toHaveLength(12);
     expect(result.current.hasUsers).toBe(true);
-    expect(result.current.totalUsers).toBe(5);
+    expect(result.current.totalUsers).toBe(12);
+    expect(result.current.totalPages).toBe(2);
+    expect(result.current.currentPage).toBe(1);
   });
 
   it("deve filtrar usuários pelo primeiro nome", async () => {
-    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
-
-    const { result } = renderHook(() => useUsers(1, "Maurício"), {
+    const { result } = renderHook(() => useUsers(), {
       wrapper: createWrapper(),
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    expect(result.current.users).toHaveLength(1);
-    expect(result.current.users[0].name.first).toBe("Maurício");
-    expect(result.current.users[0].email).toBe("mauricio.silva@gmail.com");
+    await act(async () => {
+      result.current.setSearchTerm("Maurício");
+    });
+
+    await waitFor(() => {
+      expect(result.current.users).toHaveLength(1);
+      expect(result.current.users[0].name.first).toBe("Maurício");
+      expect(result.current.isSearching).toBe(true);
+    });
   });
 
-  it("deve filtrar usuários pelo último nome", async () => {
-    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
-
-    const { result } = renderHook(() => useUsers(1, "Oliveira"), {
+  it("deve filtrar usuários pelo último nome Oliveira", async () => {
+    const { result } = renderHook(() => useUsers(), {
       wrapper: createWrapper(),
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    expect(result.current.users).toHaveLength(1);
-    expect(result.current.users[0].name.last).toBe("Oliveira");
-    expect(result.current.users[0].name.first).toBe("Priscila");
+    await act(async () => {
+      result.current.setSearchTerm("Oliveira");
+    });
+
+    await waitFor(() => {
+      expect(result.current.users).toHaveLength(2);
+      expect(result.current.users[0].name.last).toBe("Oliveira");
+      expect(result.current.users[1].name.last).toBe("Oliveira");
+    });
   });
 
-  it("deve filtrar usuários pela idade", async () => {
-    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
-
-    const { result } = renderHook(() => useUsers(1, "32"), {
+  it("deve filtrar usuários pela idade 29 anos", async () => {
+    const { result } = renderHook(() => useUsers(), {
       wrapper: createWrapper(),
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    expect(result.current.users).toHaveLength(1);
-    expect(result.current.users[0].dob.age).toBe(32);
-    expect(result.current.users[0].name.first).toBe("Maurício");
+    await act(async () => {
+      result.current.setSearchTerm("29");
+    });
+
+    await waitFor(() => {
+      expect(result.current.users).toHaveLength(2);
+      expect(result.current.users[0].dob.age).toBe(29);
+      expect(result.current.users[1].dob.age).toBe(29);
+    });
   });
 
-  it("deve filtrar usuários pela cidade", async () => {
-    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
-
-    const { result } = renderHook(() => useUsers(1, "São Paulo"), {
+  it("deve navegar entre páginas corretamente", async () => {
+    const { result } = renderHook(() => useUsers(), {
       wrapper: createWrapper(),
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    expect(result.current.users).toHaveLength(2);
-    expect(result.current.users[0].location.city).toBe("São Paulo");
-    expect(result.current.users[1].location.city).toBe("São Paulo");
+    expect(result.current.currentPage).toBe(1);
+    expect(result.current.users).toHaveLength(10);
+
+    await act(async () => {
+      result.current.setCurrentPage(2);
+    });
+
+    await waitFor(() => {
+      expect(result.current.currentPage).toBe(2);
+      expect(result.current.users).toHaveLength(2);
+      expect(result.current.totalPages).toBe(2);
+    });
   });
 
-  it("deve filtrar usuários pelo estado", async () => {
-    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
-
-    const { result } = renderHook(() => useUsers(1, "sp"), {
+  it("deve resetar para página 1 ao fazer busca", async () => {
+    const { result } = renderHook(() => useUsers(), {
       wrapper: createWrapper(),
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    expect(result.current.users).toHaveLength(2);
-    expect(result.current.users[0].location.state).toBe("SP");
-    expect(result.current.users[1].location.state).toBe("SP");
-  });
+    await act(async () => {
+      result.current.setCurrentPage(2);
+    });
+    await waitFor(() => expect(result.current.currentPage).toBe(2));
 
-  it("deve fazer busca case insensitive na cidade", async () => {
-    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
-
-    const { result } = renderHook(() => useUsers(1, "sÃO paULO"), {
-      wrapper: createWrapper(),
+    await act(async () => {
+      result.current.setSearchTerm("São Paulo");
     });
 
-    await waitFor(() => expect(result.current.isLoading).toBe(false));
-
-    expect(result.current.users).toHaveLength(2);
-    expect(result.current.users[0].location.city).toBe("São Paulo");
-    expect(result.current.users[1].location.city).toBe("São Paulo");
-  });
-
-  it("deve fazer busca case insensitive no primeiro nome", async () => {
-    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
-
-    const { result } = renderHook(() => useUsers(1, "mAUrÍcio"), {
-      wrapper: createWrapper(),
+    await waitFor(() => {
+      expect(result.current.currentPage).toBe(1);
+      expect(result.current.isSearching).toBe(true);
     });
-
-    await waitFor(() => expect(result.current.isLoading).toBe(false));
-
-    expect(result.current.users).toHaveLength(1);
-    expect(result.current.users[0].name.first).toBe("Maurício");
   });
 
   it("deve retornar vazio quando nenhum usuário corresponder à busca", async () => {
-    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
-
-    const { result } = renderHook(() => useUsers(1, "Carlos"), {
+    const { result } = renderHook(() => useUsers(), {
       wrapper: createWrapper(),
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    expect(result.current.users).toHaveLength(0);
-    expect(result.current.hasUsers).toBe(false);
+    await act(async () => {
+      result.current.setSearchTerm("Xavier");
+    });
+
+    await waitFor(() => {
+      expect(result.current.users).toHaveLength(0);
+      expect(result.current.hasUsers).toBe(false);
+      expect(result.current.isSearching).toBe(true);
+    });
   });
 
   it("deve retornar usuários que contenham parte do nome", async () => {
-    (userService.fetchUsers as jest.Mock).mockResolvedValue(mockUsers);
-
-    const { result } = renderHook(() => useUsers(1, "anda"), {
+    const { result } = renderHook(() => useUsers(), {
       wrapper: createWrapper(),
     });
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
-    expect(result.current.users).toHaveLength(1);
-    expect(result.current.users[0].name.first).toBe("Fernanda");
+    await act(async () => {
+      result.current.setSearchTerm("anda");
+    });
+
+    await waitFor(() => {
+      expect(result.current.users).toHaveLength(2);
+      const userNames = result.current.users.map((user) => user.name.first);
+      expect(userNames).toContain("Amanda");
+      expect(userNames).toContain("Fernanda");
+    });
   });
 
   it("deve lidar com erro na requisição", async () => {
@@ -165,7 +182,7 @@ describe("useUsers", () => {
       new Error("Erro de rede")
     );
 
-    const { result } = renderHook(() => useUsers(1, ""), {
+    const { result } = renderHook(() => useUsers(), {
       wrapper: createWrapper(),
     });
 
