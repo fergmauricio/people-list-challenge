@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/Input/Input";
 import "./SearchHeader.scss";
 import { ThemeToggle } from "@/components/ui/ThemeToggle/ThemeToggle";
@@ -23,6 +23,10 @@ export const SearchHeader = ({
   totalPages = 1,
 }: SearchHeaderProps) => {
   const [localSearch, setLocalSearch] = useState(searchTerm);
+
+  useEffect(() => {
+    setLocalSearch(searchTerm);
+  }, [searchTerm]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

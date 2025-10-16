@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "./useDebounce";
 import { userService } from "@/services/userService";
 import { User } from "@/types/user.types";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface UseUsersReturn {
   users: User[];
@@ -13,12 +13,21 @@ interface UseUsersReturn {
   hasUsers: boolean;
   totalUsers: number;
   isSearching: boolean;
+  searchTerm: string;
+  setSearchTerm: (term: string) => void;
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
+  totalPages: number;
 }
 
 export const useUsers = (): UseUsersReturn => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const debouncedSearch = useDebounce(searchTerm, 400);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
 
   const {
     data: allUsers = [],
