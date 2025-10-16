@@ -1,73 +1,166 @@
-# React + TypeScript + Vite
+# Find People - Sistema de Gerenciamento de Usuários
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![CI/CD](https://github.com/fergmauricio/people-list-challenge/actions/workflows/ci.yml/badge.svg)](https://github.com/fergmauricio/people-list-challenge/actions)
+[![React](https://img.shields.io/badge/React-18.2.0-%2361DAFB)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-%233178C6)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-4.0-%23646CFF)](https://vitejs.dev/)
+[![Testes](https://img.shields.io/badge/testes-unitários%20%2B%20e2e-%2344CC11)](https://testing-library.com/)
 
-Currently, two official plugins are available:
+## Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este projeto é um **React Challenge** proposto em alguns processos seletivos para contratação de **React Frontend Developers**.
 
-## React Compiler
+Achei a proposta do desafio interessante e resolvi praticar criando a minha versão, implementando não apenas os requisitos básicos, mas também algumas features extras.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Resultado:** Uma aplicação completa, bem testada e pronta para produção!
 
-## Expanding the ESLint configuration
+![Preview da Aplicação](https://via.placeholder.com/800x400/811AC0/FFFFFF?text=Find+People+-+Gerenciamento+de+Usuários)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Funcionalidades Implementadas
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### ✅ **Requisitos do Desafio**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- [x] Listagem de usuários buscando da API randomuser.me
+- [x] Comportamento responsivo para Mobile e Desktop
+- [x] Testes unitários dos principais componentes que contém lógica de negócio
+- [x] Busca em tempo real por nome, sobrenome e idade
+- [x] Visualização de perfil detalhado
+- [x] Paginação completa, mostrando 10 usuários por página
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 🚀 **Features Extras**
+
+- **Tema escuro/claro** com persistência \*\*
+- **Design totalmente responsivo** (mobile → desktop)
+- **Performance otimizada** com debounce e code splitting
+- **Testes completos** (unitários + E2E)
+- **CI/CD** com GitHub Actions
+- **Smooth Animations** com Framer Motion
+
+## 🛠 Stack Tecnológica
+
+**Frontend**
+
+- React 19 + TypeScript
+- Vite
+- React Router
+
+**Gerenciamento de Estado**
+
+- React Query
+- Hooks Customizados
+
+**Estilização & UI**
+
+- Sass + CSS Modules
+- Framer Motion
+- Lucide React
+
+**Qualidade & Testes**
+
+- Jest + React Testing Library (Testes unitários)
+- Playwright (Testes E2E)
+- ESLint + TypeScript
+
+**Ferramentas de Desenvolvimento**
+
+- Storybook
+- GitHub Actions (CI/CD)
+
+## Destaques Técnicos
+
+### **Arquitetura Escalável**
+
+```typescript
+// Hooks customizados para lógica reutilizável
+const { users, searchTerm, isLoading } = useUsers();
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### **Performance Otimizada**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Debounce de busca (400ms)
+- Code splitting com React.lazy
+- Memoização de componentes
+- Bundle otimizado com tree shaking
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### **Experiência do Usuário**
+
+- Loading skeletons durante carregamento
+- Estados de erro customizados
+- Transições suaves entre temas
+- Feedback visual imediato
+
+## Como Executar
+
+### **Instalação**
+
 ```
+# Clonar o repositório
+git clone https://github.com/fergmauricio/people-list-challenge
+cd people-list-challenge
+
+# Instalar dependências
+npm install
+
+# Executar em desenvolvimento
+npm run dev
+
+# Executar testes
+npm test
+npm run test:e2e
+```
+
+### **Scripts Disponíveis**
+
+```
+npm run dev         # Servidor de desenvolvimento
+npm run build       # Build de produção
+npm run preview     # Preview do build
+npm test            # Testes unitários
+npm run test:e2e    # Testes end-to-end
+npm run lint        # Análise de código
+npm run storybook   # Storybook
+```
+
+## Estrutura do Projeto
+
+```
+src/
+├── components/          # Componentes reutilizáveis
+│   ├── ui/              # Componentes de base
+│   │   ├── Button/      # Botões
+│   │   ├── Input/       # Campos de entrada
+│   │   ├── Pagination/  # Paginação
+│   │   └── Loading/     # Estados de carregamento
+│   └── user/            # Componentes específicos
+│       ├── UserCard/    # Visualização mobile
+│       ├── UserTable/   # Visualização desktop
+│       └── SearchHeader/# Interface de busca
+├── hooks/               # Hooks customizados
+│   ├── useUsers.ts      # Gerenciamento de usuários
+│   ├── useDebounce.ts   # Otimização de busca
+│   └── useTheme.ts      # Gerenciamento de tema
+├── pages/               # Páginas/rotas
+│   ├── Home/            # Listagem de usuários
+│   └── UserDetails/     # Detalhes do usuário
+├── services/            # Serviços de API
+├── types/               # Definições TypeScript
+└── test/                # Utilitários de teste
+```
+
+## Pipeline CI/CD
+
+```
+- Testes Unitários → Testes E2E → Build → Deploy
+- Automatizado em cada push/PR
+- Matriz de testes multi-navegador
+```
+
+## Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para detalhes.
+
+## 🙏 Agradecimentos
+
+- RandomUser.me pela API de dados de usuários
+- Comunidades React e TypeScript
+- Leandro Lopes [github/d3vlopes] - Autor do Desafio.

@@ -7,9 +7,34 @@
   transition: all 0.2s ease;
   border: 1px solid var(--grey-500);
 
+  // Layout principal - 2 colunas
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+
   &:hover {
     border-color: var(--primary);
     transform: translateY(-2px);
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
   }
 
   &__name {
@@ -18,6 +43,7 @@
     font-weight: 600;
     color: var(--text-primary);
     margin: 0 0 0.25rem 0;
+    line-height: 1.2;
   }
 
   &__title {
@@ -25,12 +51,29 @@
     font-size: $text-14;
     color: var(--grey-300);
     text-transform: capitalize;
+    margin-bottom: 8px;
+  }
+
+  &__details {
+    grid-column: 1 / -1; // Ocupa ambas colunas
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+    margin-top: 8px;
+  }
+
+  &__detail {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
   &__label {
     font-family: $font-secondary;
-    font-size: $text-14;
+    font-size: $text-12;
     color: var(--grey-300);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   &__value {
@@ -45,14 +88,56 @@
 @include mobile {
   .user-card {
     padding: 0.75rem;
+    gap: 10px;
 
-    &__header {
-      gap: 0.75rem;
-    }
+    // 2 colunas em tablets/mobile médio
+    grid-template-columns: 50px 1fr;
 
     &__avatar {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
+    }
+
+    &__name {
+      font-size: $text-16;
+    }
+
+    &__details {
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 12px;
+    }
+
+    &__label {
+      font-size: $text-11;
+    }
+
+    &__value {
+      font-size: $text-13;
+    }
+  }
+
+  // Mobile muito pequeno - 1 coluna
+  @media (max-width: 360px) {
+    .user-card {
+      grid-template-columns: 1fr;
+      text-align: left;
+
+      &__header {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      &__avatar {
+        width: 44px;
+        height: 44px;
+      }
+
+      &__details {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
     }
   }
 }
