@@ -2,55 +2,74 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "./useDebounce";
 import { userService } from "@/services/userService";
 import { User } from "@/types/user.types";
+import { useMemo, useState } from "react";
 
 interface UseUsersReturn {
   users: User[];
+  allUsers: User[];
+  filteredUsers: User[];
   isLoading: boolean;
   error: Error | null;
   hasUsers: boolean;
   totalUsers: number;
+  isSearching: boolean;
 }
 
-export const useUsers = (page: number, searchTerm: string): UseUsersReturn => {
-  const debouncedSearch = useDebounce(searchTerm, 300);
+export const useUsers = (): UseUsersReturn => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const debouncedSearch = useDebounce(searchTerm, 400);
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["users", page],
-    queryFn: () =>
-      userService.fetchUsers({
-        page,
-        results: 20,
-        seed: "findpeople",
-      }),
+  const {
+    data: allUsers = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: () => userService.fetchUsers({ results: 100 }),
     staleTime: 5 * 60 * 1000,
   });
 
-  // Filtro client-side
-  const filteredUsers =
-    data?.filter((user) => {
-      if (!debouncedSearch) return true;
+  const filteredUsers = useMemo(() => {
+    if (!debouncedSearch) return allUsers;
 
-      const term = debouncedSearch.toLowerCase();
-      const firstName = user.name.first.toLowerCase();
-      const lastName = user.name.last.toLowerCase();
-      const city = user.location.city.toLowerCase();
-      const state = user.location.state.toLowerCase();
-      const age = user.dob.age.toString();
+    const term = debouncedSearch.toLowerCase();
 
+    return allUsers.filter((user) => {
       return (
-        firstName.includes(term) ||
-        lastName.includes(term) ||
-        age.includes(term) ||
-        city.includes(term) ||
-        state.includes(term)
+        user.name.first.toLowerCase().includes(term) ||
+        user.name.last.toLowerCase().includes(term) ||
+        user.dob.age.toString().includes(term)
       );
-    }) || [];
+    });
+  }, [allUsers, debouncedSearch]);
+
+  const paginatedUsers = useMemo(() => {
+    const usersToPaginate =
+      debouncedSearch.length >= 1 ? filteredUsers : allUsers;
+    const startIndex = (currentPage - 1) * 10;
+    const endIndex = startIndex + 10;
+    return usersToPaginate.slice(startIndex, endIndex);
+  }, [allUsers, filteredUsers, currentPage, debouncedSearch]);
+
+  const isSearching = debouncedSearch.length >= 1;
+  const totalPages = Math.ceil(
+    (isSearching ? filteredUsers.length : allUsers.length) / 10
+  );
 
   return {
-    users: filteredUsers,
+    users: paginatedUsers,
+    allUsers,
+    filteredUsers,
     isLoading,
     error: error as Error | null,
-    hasUsers: filteredUsers.length > 0,
-    totalUsers: data?.length || 0,
+    hasUsers: paginatedUsers.length > 0,
+    totalUsers: allUsers.length,
+    isSearching,
+    searchTerm,
+    setSearchTerm,
+    currentPage,
+    setCurrentPage,
+    totalPages,
   };
 };

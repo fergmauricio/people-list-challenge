@@ -1,8 +1,7 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useUsers } from "@/hooks/useUsers";
-import { usePagination } from "@/hooks/usePagination";
 import { SearchHeader } from "@/components/user/SearchHeader/SearchHeader";
 import { UserCard } from "@/components/user/UserCard/UserCard";
 import { UserTable } from "@/components/user/UserTable/UserTable";
@@ -14,23 +13,29 @@ import "./Home.scss";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
 
-  const { users, isLoading, error, hasUsers } = useUsers(
+  const {
+    users,
+    isLoading,
+    error,
+    hasUsers,
+    isSearching,
+    searchTerm,
+    setSearchTerm,
     currentPage,
-    searchTerm
-  );
-  const pagination = usePagination({
-    totalItems: users.length,
-    itemsPerPage: 10,
-    initialPage: currentPage,
-  });
+    setCurrentPage,
+    totalPages,
+    filteredUsers,
+    totalUsers,
+  } = useUsers();
 
-  const handleSearchChange = useCallback((value: string) => {
-    setSearchTerm(value);
-    setCurrentPage(1);
-  }, []);
+  const handleSearchChange = useCallback(
+    (value: string) => {
+      setSearchTerm(value);
+      setCurrentPage(1);
+    },
+    [setSearchTerm, setCurrentPage]
+  );
 
   const handleViewProfile = useCallback(
     (user: User) => {
@@ -39,10 +44,13 @@ const Home = () => {
     [navigate]
   );
 
-  const handlePageChange = useCallback((page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setCurrentPage(page);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
+    [setCurrentPage]
+  );
 
   if (error) {
     return (
@@ -76,8 +84,11 @@ const Home = () => {
       <SearchHeader
         searchTerm={searchTerm}
         onSearchChange={handleSearchChange}
-        resultsCount={users.length}
+        resultsCount={isSearching ? filteredUsers.length : totalUsers}
         isLoading={isLoading}
+        isSearching={isSearching}
+        currentPage={currentPage}
+        totalPages={totalPages}
       />
 
       <div className="home__content">
@@ -159,7 +170,7 @@ const Home = () => {
           )}
         </div>
 
-        {hasUsers && !isLoading && (
+        {hasUsers && !isLoading && totalPages > 1 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -167,7 +178,7 @@ const Home = () => {
           >
             <Pagination
               currentPage={currentPage}
-              totalPages={Math.ceil(users.length / 10)}
+              totalPages={totalPages}
               onPageChange={handlePageChange}
             />
           </motion.div>

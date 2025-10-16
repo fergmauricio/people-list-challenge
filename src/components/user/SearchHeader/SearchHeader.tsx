@@ -8,6 +8,9 @@ interface SearchHeaderProps {
   onSearchChange: (value: string) => void;
   resultsCount?: number;
   isLoading?: boolean;
+  isSearching?: boolean;
+  currentPage?: number;
+  totalPages?: number;
 }
 
 export const SearchHeader = ({
@@ -15,6 +18,9 @@ export const SearchHeader = ({
   onSearchChange,
   resultsCount = 0,
   isLoading = false,
+  isSearching = false,
+  currentPage = 1,
+  totalPages = 1,
 }: SearchHeaderProps) => {
   const [localSearch, setLocalSearch] = useState(searchTerm);
 
@@ -25,31 +31,30 @@ export const SearchHeader = ({
   };
 
   const getResultsText = () => {
-    if (isLoading) return "Buscando...";
-    if (searchTerm && resultsCount === 0) return "Nenhum resultado encontrado";
-    if (searchTerm && resultsCount > 0)
+    if (isLoading) return "Carregando usuários...";
+    if (isSearching && resultsCount === 0) return "Nenhum resultado encontrado";
+    if (isSearching && resultsCount > 0)
       return `${resultsCount} resultado(s) encontrado(s)`;
+    if (!isSearching)
+      return `Mostrando 10 de ${resultsCount} usuários - Página ${currentPage} de ${totalPages}`;
     return "";
   };
 
   return (
-    <div className="search-header animate-slide-in-up">
+    <div className="search-header">
       <div className="search-header__top">
-        <h1 className="search-header__title">Finding People</h1>
-        <div className="search-header__right">
-          {!isLoading && resultsCount > 0 && (
-            <span className="search-header__count">
-              {resultsCount} usuário(s)
-            </span>
-          )}
+        <div className="search-header__left">
+          <h1 className="search-header__title">Find People</h1>
           <ThemeToggle />
         </div>
+
+        <span className="search-header__count">{resultsCount} usuários</span>
       </div>
 
       <div className="search-header__search">
         <Input
           variant="search"
-          placeholder="Encontrar pessoas..."
+          placeholder="Buscar por (nome, sobrenome ou idade)..."
           value={localSearch}
           onChange={handleInputChange}
           disabled={isLoading}

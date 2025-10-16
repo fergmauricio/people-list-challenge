@@ -6,6 +6,7 @@ export interface FetchUsersParams {
   page: number;
   results?: number;
   seed?: string;
+  search?: string;
 }
 
 export const userService = {
@@ -13,6 +14,7 @@ export const userService = {
     page,
     results = 20,
     seed = "findpeople",
+    search = "",
   }: FetchUsersParams): Promise<User[]> {
     try {
       const response = await fetch(
