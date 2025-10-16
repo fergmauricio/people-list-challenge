@@ -6,6 +6,7 @@ import "./NotFound.scss";
 
 const NotFound = () => {
   const { theme } = useTheme();
+  console.log(theme);
 
   return (
     <div className="not-found">

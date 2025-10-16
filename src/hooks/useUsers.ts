@@ -35,7 +35,7 @@ export const useUsers = (): UseUsersReturn => {
     error,
   } = useQuery({
     queryKey: ["users"],
-    queryFn: () => userService.fetchUsers({ results: 100 }),
+    queryFn: () => userService.fetchUsers({ page: 1, results: 100 }),
     staleTime: 5 * 60 * 1000,
   });
 

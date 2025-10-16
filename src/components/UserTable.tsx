@@ -1,5 +1,5 @@
-import type { User } from "../types/user";
-import type { formatDate } from "../utils/helpers";
+import type { User } from "../types/user.types";
+import { formatDate } from "../utils/helpers";
 
 interface Props {
   users: User[];

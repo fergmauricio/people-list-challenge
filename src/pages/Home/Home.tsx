@@ -94,7 +94,7 @@ const Home = () => {
       <div className="home__content">
         <div className="home__mobile">
           {isLoading ? (
-            <SkeletonLoader type="user-card" count={3} />
+            <SkeletonLoader type="card" count={3} />
           ) : hasUsers ? (
             <motion.div
               initial={{ opacity: 0 }}

@@ -1,24 +1,22 @@
-import { UsersResponse, User } from "@/types/user.types";
+import { User, UsersResponse } from "@/types/user.types";
 
-const API_BASE_URL = "https://randomuser.me/api/";
+const BASE_URL = "https://randomuser.me/api";
 
 export interface FetchUsersParams {
   page: number;
   results?: number;
   seed?: string;
-  search?: string;
 }
 
 export const userService = {
   async fetchUsers({
     page,
-    results = 20,
+    results = 100,
     seed = "findpeople",
-    search = "",
   }: FetchUsersParams): Promise<User[]> {
     try {
       const response = await fetch(
-        `${API_BASE_URL}?page=${page}&results=${results}&seed=${seed}`
+        `${BASE_URL}?page=${page}&results=${results}&seed=${seed}`
       );
 
       if (!response.ok) {

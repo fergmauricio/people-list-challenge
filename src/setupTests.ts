@@ -1,17 +1,14 @@
 import "@testing-library/jest-dom";
 
-global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
-  observe() {
-    return null;
-  }
-  disconnect() {
-    return null;
-  }
-  unobserve() {
-    return null;
-  }
-};
+global.IntersectionObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+  root: null,
+  rootMargin: "",
+  thresholds: [],
+  takeRecords: jest.fn(),
+}));
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
